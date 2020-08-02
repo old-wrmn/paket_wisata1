@@ -23,8 +23,8 @@
 							</tr>
 						</thead>
 						<tbody>
-                                <?php      
-                                // $session = $_SESSION['id_user']         
+                                <?php
+                                // $session = $_SESSION['id_user']
                                     $sql = mysqli_query($conn, "SELECT detail_booking.id_booking, detail_booking.travel_dates, detail_booking.number_people, detail_booking.total_price, booking.status FROM detail_booking join booking on detail_booking.id_booking=booking.id_booking where booking.id_user = '".$_SESSION['id_user']."' order by id_package ASC");
                                     while($data =  mysqli_fetch_array($sql)){
                                     $id_booking = $data['id_booking'];
@@ -32,13 +32,13 @@
                                     $people = $data['number_people'];
                                     $price = $data['total_price'];
                                     $status = $data['status'];
-                                ?>				
+                                ?>
 							<tr>
                                 <td style="text-align: center; width: 15%"><?php echo "$id_booking"; ?></td>
                                 <td style="text-align: center; width: 15%"><?php echo "$date"; ?></td>
                                 <td style="text-align: center; width: 10%"><?php echo "$people"; ?></td>
                                 <td style="text-align: left; width: 20%">Rp <?php echo "$price"; ?>,-</td>
-                                <?php 
+                                <?php
                                 	if ($status=="PERLU DIKIRIM") {
                                 		echo "<td style=\"text-align: center; width: 15%\"><span class=\"badge badge-warning\" style=\"font-size:12px\"> $status <span></td>";
                                 	}elseif ($status=="TERKIRIM") {
@@ -47,19 +47,17 @@
                                 ?>
                                 <td style="text-align: center; width: 15%">
                                     <div class="btn-group">
-                						<button a <?php echo "onclick='update($id_booking)'"; if ($data['status']=="TERKIRIM") { echo "disabled";  }   ?> id="btnup" class="btn btn-outline bg-blue-400 text-blue-400 border-blue-400 mr-1"  title='Detail'><i class="icon-list"></i></button>
-
-                						<button a <?php echo "onclick='hapus($id_booking)'"; if ($data['status']=="TERKIRIM") { echo "disabled";  }  ?> id="btndel" class="btn btn-outline bg-danger-400 text-danger-400 border-danger-400 mr-1" title='Delete'><i class="icon-trash"></i></button>
-                						<button a <?php echo "onclick='send($id_booking)'"; if ($data['status']=="TERKIRIM") { echo "disabled";  }   ?> id="btnsend" class="btn btn-outline bg-success-400 text-success-400 border-success-400" title='Send it'><i class="icon-paperplane"></i></button>
-                						<button a onclick="send(<?php echo '$id_booking'; ?>)"  id="btnsend" class="btn btn-outline bg-success-400 text-success-400 border-success-400" title='Send it'><i class="icon-paperplane"></i></button>
-                                    </div>
+                                        <button a onclick="update('<?=$id_booking?>')" <?php if ($data['status']=="TERKIRIM") { echo "disabled";  }   ?> id="btnup" class="btn btn-outline bg-blue-400 text-blue-400 border-blue-400 mr-1"  title='Detail'><i class="icon-list"></i></button>
+                                        <button a onclick="hapus('<?=$id_booking?>')" <?php if ($data['status']=="TERKIRIM") { echo "disabled";  }  ?> id="btndel" class="btn btn-outline bg-danger-400 text-danger-400 border-danger-400 mr-1" title='Delete'><i class="icon-trash"></i></button>
+                                        <button a onclick="send('<?=$id_booking?>')" <?php if ($data['status']=="TERKIRIM") { echo "disabled";  }   ?> id="btnsend" class="btn btn-outline bg-success-400 text-success-400 border-success-400" title='Send it'><i class="icon-paperplane"></i></button>
+                                   </div>
                                 </td>
 							</tr>
 						<?php } ?>
 						</tbody>
 					</table>
 				</div>
-				<!-- /highlighting rows and columns -->		
+				<!-- /highlighting rows and columns -->
 
 <script type="text/javascript">
 $('#dataTable').dataTable( {
