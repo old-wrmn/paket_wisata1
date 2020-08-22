@@ -56,8 +56,8 @@ $id = $_GET["id"]
 					<div class="form-group row">
 						<label class="col-form-label col-sm-2 ml-3">Choose Place</label>
 						<div class="col-lg-8">
-							<select class="form-control" id="cariObjek">
-
+							<select class="form-control" id="cariPlace">
+								<option value="0">Choose Place</option>
 							</select>
 						</div>
 					</div>
@@ -166,11 +166,13 @@ $id = $_GET["id"]
 	let objek = 0;
 
 	function getDistrict(dis) {
+		$('#cariPlace').empty();
 		district = dis.value;
 		cariObjek();
 	}
 
 	function getObjek(obj) {
+		$('#cariPlace').empty();
 		objek = obj.value;
 		cariObjek();
 	}
@@ -181,7 +183,8 @@ $id = $_GET["id"]
 
 
 	function cariObjek() {
-		$('#cariObjek').empty();
+		let select = document.getElementById("cariPlace");
+		let res = [];
 
 		if (objek != 0 && district != 0) {
 
@@ -198,13 +201,9 @@ $id = $_GET["id"]
 						var row = rows[i];
 						var id = row.id;
 						var name = row.name;
-						$('#cariObjek').append(new Option(name, id));
-						var option = document.createElement("option");
-						option.text = name;
-						option.value = id;
-						var select = document.getElementById("cariObjek");
-						select.appendChild(option);
-						console.log(option);
+						let o = new Option(name, id);
+						$(o).html(name);
+						$("#cariPlace").append(o);
 						console.log(select);
 					}
 				}
