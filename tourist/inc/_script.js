@@ -21,47 +21,62 @@
 var booking_id = "";
 var booking_price = "";
 
-function booking(id,price)
-{
+function booking(id,price){
   booking_id = id;
   booking_price = price;
+  var user_id = document.getElementById('user_id').value;
   document.getElementById('id_package').value = booking_id;
+  document.getElementById('custom').href = "act/_customPackage.php?id_package="+booking_id+"&id_user="+user_id+"";
 }
 
-function send(id_booking)
-                   {
+function send(id_booking){
 
-                    
-          
-                  //  console.log(id_booking);
+  $.ajax({
+     type : "POST",
+     url  : server+'tourist/act/kirimEmail.php',
+     dataType : "JSON",
+     data : {id_booking:id_booking},
+     success: function(data){
+         alert('Email Sudah Dikirim ke');
+     }
+  });
+  alert('Data Has Been Send');
+  location.reload();
+}
 
-                    $.ajax({
-                       type : "POST",
-                       url  : server+'tourist/act/kirimEmail.php',
-                       dataType : "JSON",
-                       data : {id_booking:id_booking},
-                       success: function(data){
-                           alert('Email Sudah Dikirim ke');
-                       }
-                   });
-                    alert('Data Has Been Send');
-                    location.reload();
-                  }
+function update(id_booking){                    
+  update_id = id_booking;                      
+  document.getElementById('id_booking').value = update_id;
 
-function update(id_booking)
-                   {
-                    window.location.href='updatebooking.php?id_booking='+id_booking ;
+  $.ajax({ 
+        url: server+'tourist/act/_dataBooking.php?id='+id_booking, data: "", dataType: 'json', success: function(rows)
+          { 
+          for (var i in rows) 
+            {   
+              var row = rows[i];
+            var id  = row.id;
+            // var id_travel  = row.id_travel;
+            var people  = row.people;
+            var oneprice = row.satuan;
+            var date = row.date;
+            var price = row.price;                                
+            console.log(name);
+            } 
+            console.log(id, people, oneprice, price, date);
+           document.getElementById('id_package').value = id;
+           document.getElementById('total').value = people;
+           document.getElementById('olddate').value = date;
+           document.getElementById('oneprice').value = oneprice;
+           document.getElementById('totalprice').value = price;
+          }
+        }); 
 
-                    
-                    }
+}
 
-function hapus(id_booking)
+function hapus(id_booking){
+  window.location.href='act/deleteBooking.php?id_booking='+id_booking ;
 
-
-                   {
-                   window.location.href='deletebooking.php?id_booking='+id_booking ;
-                    
-                    }            
+}            
 
 function hitung()
 {
@@ -80,7 +95,7 @@ function hitung()
 function hitungupdate(id_booking)
 {
   var hitung = document.getElementById('total').value;
-  var booking_price=document.getElementById('price').value;
+  var booking_price=document.getElementById('oneprice').value;
   hitung = hitung * booking_price;
   document.getElementById('totalprice').value = hitung;  
 }

@@ -19,14 +19,14 @@
 								</span>
 							</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item" id="twp">
 	                    	<a href="javascript:;" class="nav-link" id="showall" onclick="tampilsemua()">
 	                    		<i class="icon-list"></i>
 	                          	<span>Tourism Package</span>
 	                    	</a>
 		                </li> 
 
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu" id="tay">
 				          <a href="#" class="nav-link"><i class="icon-compass4"></i> <span>Tourism Around You</span></a>
 				          
 				          <ul class="nav nav-group-sub">
@@ -49,7 +49,7 @@
 				          </ul>
 				        </li>			
 
-		                <li class="nav-item nav-item-submenu">
+		                <li class="nav-item nav-item-submenu" id="spn">
 							<a href="#" class="nav-link"><i class="icon-search4"></i> <span>Search Package by Name</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">								
@@ -62,7 +62,7 @@
 						</li>
 						              
 
-						<li class="nav-item nav-item-submenu">
+						<li class="nav-item nav-item-submenu" id="spd">
 							<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Search Package by Destination</span></a>
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts">								

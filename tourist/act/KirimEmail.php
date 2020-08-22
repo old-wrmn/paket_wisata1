@@ -2,12 +2,12 @@
 // session_start('C');
 include ('../../connect.php');
 $id_booking = $_POST['id_booking'];
-//$id_booking = 9;
+// $id_booking = 'BKG005';
 
 $updateBooking = mysqli_query($conn, "UPDATE booking set status='TERKIRIM' where id_booking='".$id_booking."'");
 
  
- $query = " SELECT booking.date, 
+ $query = " SELECT booking.purchase_date, 
             package.name as nama_paket, 
             package.id_user as agen,
             booking.id_booking, 
@@ -17,6 +17,7 @@ $updateBooking = mysqli_query($conn, "UPDATE booking set status='TERKIRIM' where
             detail_booking.total_price, 
             package.price, 
             users.email, 
+            users.address as alamat,
             users.username,  
             users.contact FROM booking 
                         LEFT JOIN detail_booking on booking.id_booking = detail_booking.id_booking  
@@ -26,17 +27,19 @@ $updateBooking = mysqli_query($conn, "UPDATE booking set status='TERKIRIM' where
                          where booking.id_booking = '".$id_booking."'";
     $cek = mysqli_query($conn, $query);
     $data = mysqli_fetch_array($cek);    
-        $id_travel = $data['agen'];
+        $id_agen = $data['agen'];
+        $address = $data['alamat'];
         echo json_encode ($data);
 
-$query2 = mysqli_query($conn, "SELECT username, email, address FROM users WHERE id_user='".$id_travel."'");
+$query2 = mysqli_query($conn, "SELECT username, email FROM users WHERE id_user='".$id_agen."'");
 $data2 = mysqli_fetch_array($query2);
     $usernameAgen = $data2['username'];
-    $emailAgen = $data['email'];
+    $emailAgen = $data2['email'];
+    $dataarray[] = array('usernameAgen' =>$usernameAgen, 'emailAgen' =>$emailAgen);
 echo json_encode ($data2);
 
-        $emailtravel = $emailAgen;
-        $namatr = '$usernameAgen';
+        // $emailtravel = $emailAgen;
+        // $namatr = $usernameAgen;
 //$emailtravel = 'firdausrizki17@gmail.com';
 //$namatr = 'Rizki Firdus';
     // require('PHPMailer/class.phpmailer.php');
@@ -54,10 +57,10 @@ $mail->isSMTP();
         $mail->Port = 587;
         $mail->SMTPSecure='tls';
         $mail->SMTPAuth = true;
-        $mail->Username = "malik.lubis@gmail.com";
-        $mail->Password = "avengedseven";
+        $mail->Username = "aplikasi.paketwisata@gmail.com";
+        $mail->Password = "awytbg19";
 
-        $mail->setFrom("malik.lubis@gmail.com", "pisang1");
+        $mail->setFrom("aplikasi.paketwisata@gmail.com");
         $mail->isHTML(true);
         $mail->SMTPOptions = array(
         'ssl' => array(
@@ -67,12 +70,15 @@ $mail->isSMTP();
         )
     );
          // Setel format email ke HTML 
-        $mail->addAddress($emailtravel, $namatr);
+        $mail->addAddress($emailAgen, $usernameAgen);
         //    $mail->addAddress("$email", "$Username");
-        $mail->Subject = 'SIG TOURISM PACKAGE SOUTH SOLOK' ; 
+        $mail->Subject = 'GIS TOURISM PACKAGE PADANG CITY' ; 
         $mail->Body = "Anda mendapatkan pesanan paket wisata dari : 
                         <table>
                           <tbody>
+                            <tr>
+                               <td>E-mail</td> <td>:  &nbsp;</td> <td>".$data['email']."</td>
+                            </tr>                          
                             <tr>
                                 <td>Nama Pembeli </td> <td>:  &nbsp;</td> <td>".$data['username']."</td> 
                             </tr>
@@ -83,7 +89,7 @@ $mail->isSMTP();
                                 <td>Nama Paket </td> <td>:  &nbsp;</td> <td> ".$data['nama_paket']."</td>
                             </tr>
                             <tr>
-                                <td>Tanggal Pemesanan </td> <td>:  &nbsp;</td> <td> ".$data['date']."</td>
+                                <td>Tanggal Pemesanan </td> <td>:  &nbsp;</td> <td> ".$data['purchase_date']."</td>
                             </tr>
                             <tr>
                                 <td>Nama Pemesan</td> <td>:  &nbsp;</td> <td> ".$data['username']."</td>
@@ -93,9 +99,6 @@ $mail->isSMTP();
                             </tr>
                             <tr>
                                <td>Total Harga </td> <td>:  &nbsp;</td> <td>".$data['total_price']."</td>
-                            </tr>
-                            <tr>
-                               <td>E-mail</td> <td>:  &nbsp;</td> <td>".$data['email']."</td>
                             </tr>
                           </tbody>
                       </table>"; 

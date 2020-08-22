@@ -43,7 +43,7 @@
         function init(){
               basemap();
               kecamatanTampil();
-              
+              tampilDigitTourism();
 
           }
 
@@ -278,6 +278,7 @@
           } 
           rute=[]; 
         }
+
 
       /* **********************************************************************************************************************************************************
       ***********************************************************************************************************************************************************
@@ -555,7 +556,7 @@ function geolocation(){
                   var price = row.price;
                   console.log(name);
                     
-                   $('#kanan_table').append("<tr><td>"+name+"</td><td>Rp "+price+"</td><td><a role='button' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-road' title='route' onclick='rute(\""+id+"\");tampilanobjek(\""+id+"\");'></a></td><td><a role='button' class='btn btn-outline bg-green-400 text-green-400 border-green-400 icon-envelop5' title='booking' href='#modalbooking' data-toggle='modal' onclick='booking(\""+id+"\",\""+price+"\")'></a></td><td><a role='button' title='Package Info' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-info22' value='Route' onclick='gallery(\""+id+"\")'></a></td><td><a role='button' title='List Package' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-list-unordered' value='Detail' onclick='showdetpackage(\""+id+"\")'></a></td><td><a role='button' title='Gallery' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-play' value='Route' onclick='videopaket(\""+id+"\")'></a></td></tr>");
+                   $('#kanan_table').append("<tr><td>"+name+"</td><td>Rp "+price+"</td><td><a role='button' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-road' title='route' onclick='rute1(\""+id+"\");tampilanobjek(\""+id+"\");'></a></td><td><a role='button' class='btn btn-outline bg-green-400 text-green-400 border-green-400 icon-envelop5' title='booking' href='#modalbooking' data-toggle='modal' onclick='booking(\""+id+"\",\""+price+"\")'></a></td><td><a role='button' title='Package Info' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-info22' value='Route' onclick='info(\""+id+"\")'></a></td></tr>");
                 
                   } 
                   console.log('yaaaaaaaaa tampill semua');
@@ -623,20 +624,151 @@ function geolocation(){
         }});//end ajax  
       }
 
-      function tampilrute(id, warna, latitude, longitude){ //TAMPILKAN RUTE
-        ja = new google.maps.Data();
-        ja.loadGeoJson(server+'tampilkanrute.php?id_angkot='+id);
-        ja.setStyle(function(feature){
-          return({
-              fillColor: 'yellow',
-              strokeColor: warna,
-              strokeWeight: 2,
-              fillOpacity: 0.5
-              });          
+    var arraykota=[]; 
+    clearroute();
+    function rute1(ab){  
+        // var total=0;
+      while(arraykota.length>0)
+        {
+          arraykota.pop();
+        }
+        while(waypts.length>0)
+        {
+          waypts.pop();
+        }
+        $.ajax({ 
+          url: server+'act/rutePaket.php?id_package='+ab, data: "", dataType: 'json', success: function(rows)
+            { 
+            for (var i in rows) 
+              {   
+                // total=total+1;
+                var row     = rows[i];
+                var no_urut   = row.no_urut;
+                var id_tourism   = row.id_tourism;
+                var id_restaurant   = row.id_restaurant;
+                var id_souvenir   = row.id_souvenir;            
+                var id_worship_place  = row.id_worship_place;
+                var latitude = row.longitude ;
+                var longitude = row.longitude ;
+                centerBaru      = new google.maps.LatLng(row.latitude, row.longitude);
+                arraykota.push(centerBaru);       
+                map.setCenter(centerBaru);
+                //klikInfoWindow_paket(centerBaru, id);
+                map.setZoom(15);          
+                 
+                
+              }
+                calcDire();
+                console.log(server+'act/rutePaket.php?id_package='+ab);
+            }
+          }); 
+
+      }
+      var waypts=[];
+      function calcDire(){
+        arraykota.length==null;
+        // directionsDisplay.setMap(null);
+        if(directionsDisplay)
+          {
+            // clearroute2();  
+            hapusInfo();
+          }
+          else
+          {}
+        var directionsService = new google.maps.DirectionsService;
+        directionsDisplay = new google.maps.DirectionsRenderer;
+
+        for (var x = 1; x < arraykota.length-1;x++){
+          waypts.push({
+            location:arraykota[x],
+            stopover:true
+          }) 
+        }
+
+        directionsDisplay.setMap(map);
+        directionsService.route(
+          { origin: arraykota[0],
+          destination: arraykota[arraykota.length-1],
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: google.maps.TravelMode.DRIVING }, 
+          function(response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+            var route = response.routes[0]; } 
+          }
+        );
+         // console.log("aaaaaa");
+         // klikInfoWindow_paket(directionsDisplay, id);
+       }
+
+      function tampilanobjek(gid)
+      {
+
+        $.ajax({url: server+'act/tampilanobjek.php?gid='+gid, data: "", dataType: 'json', success: function(rows)
+        {
+          console.log('uyicj');
+        
+          if(rows==null)
+          {
+            alert('Tidak ada data');
+          }
+          else
+          {
+            console.log(rows);
+          for (var i in rows)
+          {
+            var row = rows [i];
+            for (var x in row)
+            {
+            var row1 = row [x];
+            var id = row1.id;
+            var name = row1.name;
+            var status = row1.status;
+            var lat = row1.latitude;
+            var lon = row1.longitude;
+            centerBaru = new google.maps.LatLng(lat,lon);
+            map.setCenter(centerBaru);
+            console.log(id);
+            console.log(status);
+            map.setZoom(10);
+            var marker =  new google.maps.Marker({
+                          position: centerBaru,
+                          animation: google.maps.Animation.DROP,
+                          map: map
+                          });
+            if (status ==4) {
+              klikInfoWindow_tw(id,marker);        
+            } else if (status ==2) {
+              klikInfoWindow_masjid(id,marker);        
+            } else if (status ==3) {
+              klikInfoWindow_rm(id,marker);        
+            } else if (status ==1) {
+              klikInfoWindow_souvenir(id,marker);        
+            }
+             else if (status ==5) {
+              klikInfoWindow_hotel(id,marker);        
+            }
+            // else if (status ==6) {
+            //   klikInfoWindow_travel(id,marker);        
+            // }
+
+            markersDua.push(marker);
+            map.setCenter(centerBaru);
+          }
+          }
+          }
+        },
+        error: function(xmlHTTPrequest)
+        {
+          console.log(xmlHTTPrequest)
+        }
         });
-        ja.setMap(map);  
-        angkot.push(ja);
-        map.setZoom(15);
+      }   
+
+      function info(id){
+        console.log(id);
+        window.location.href='?page=detailPackage&id='+id;
       }
 
       function cekNearBy(){
@@ -1017,7 +1149,7 @@ function geolocation(){
                   var price = row.price;
                   console.log(name);
 
-                   $('#kanan_table').append("<tr><td>"+name+"</td><td>Rp "+price+"</td><td><a role='button' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-road' title='route' onclick='rute(\""+id+"\");tampilanobjek(\""+id+"\");'></a></td><td><a role='button' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-envelop5' title='booking' href='#modalbooking' data-toggle='modal' onclick='booking(\""+id+"\",\""+price+"\")'></a></td><td><a role='button' title='Package Info' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-file-picture2' value='Route' onclick='gallery(\""+id+"\")'></a></td><td><a role='button' title='List Package' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-info22' value='Detail' onclick='showdetpackage(\""+id+"\")'></a></td><td><a role='button' title='Gallery' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-play' value='Route' onclick='videopaket(\""+id+"\")'></a></td></tr>");
+                   $('#kanan_table').append("<tr><td>"+name+"</td><td>Rp "+price+"</td><td><a role='button' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-road' title='route' onclick='rute1(\""+id+"\");tampilanobjek(\""+id+"\");'></a></td><td><a role='button' class='btn btn-outline bg-green-400 text-green-400 border-green-400 icon-envelop5' title='booking' href='#modalbooking' data-toggle='modal' onclick='booking(\""+id+"\",\""+price+"\")'></a></td><td><a role='button' title='Package Info' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-info22' value='Route' onclick='info(\""+id+"\")'></a></td></tr>");
                 
                 }
                 }
@@ -1063,7 +1195,7 @@ function geolocation(){
                   var name  = row.name;
                   var price = row.price;
                   console.log(name, price);
-                  $('#kanan_table').append("<tr><td>"+name+"</td><td>Rp "+price+"</td><td><a role='button' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-road' title='route' onclick='rute(\""+id+"\");tampilanobjek(\""+id+"\");'></a></td><td><a role='button' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-envelop5' title='booking' href='#modalbooking' data-toggle='modal' onclick='booking(\""+id+"\",\""+price+"\")'></a></td><td><a role='button' title='Package Info' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-file-picture2' value='Route' onclick='gallery(\""+id+"\")'></a></td><td><a role='button' title='List Package' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-info22' value='Detail' onclick='showdetpackage(\""+id+"\")'></a></td><td><a role='button' title='Gallery' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-play' value='Route' onclick='videopaket(\""+id+"\")'></a></td></tr>");
+                  $('#kanan_table').append("<tr><td>"+name+"</td><td>Rp "+price+"</td><td><a role='button' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-road' title='route' onclick='rute1(\""+id+"\");tampilanobjek(\""+id+"\");'></a></td><td><a role='button' class='btn btn-outline bg-green-400 text-green-400 border-green-400 icon-envelop5' title='booking' href='#modalbooking' data-toggle='modal' onclick='booking(\""+id+"\",\""+price+"\")'></a></td><td><a role='button' title='Package Info' class='btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-info22' value='Route' onclick='info(\""+id+"\")'></a></td></tr>");
                 
                 }
                 }
@@ -1730,6 +1862,7 @@ function geolocation(){
           }
           hapusRadius();
           hapusMarkerObject();
+          tampilDigitTourism();
 
           //Radius
           var inputradius=document.getElementById("inputradius2").value;
@@ -1746,7 +1879,19 @@ function geolocation(){
             fillColor: "blue",
             fillOpacity: 0.35
           });        
-          circles.push(circle);     
+          circles.push(circle);   
+
+          tw_sekitar_user(rad_lat,rad_lng,rad);
+
+          //MARKER
+          centerLokasi = new google.maps.LatLng(rad_lat, rad_lng);        
+          marker = new google.maps.Marker({
+           //icon: "assets/img/biru1.ico",
+            position : centerLokasi,
+            map: map,
+            animation: google.maps.Animation.DROP,
+            });
+ 
 
           //TAMPILAN
           $('#table_kanan_hotel').empty();
@@ -1766,6 +1911,7 @@ function geolocation(){
           $('#table_industry').hide();
           $('#table_restaurant').hide();
           $('#table_angkot').hide();
+          $('#galleryrecommendxxx').hide();
 
           if (document.getElementById("check_i").checked) {
             industri_sekitar(rad_lat,rad_lng,rad);

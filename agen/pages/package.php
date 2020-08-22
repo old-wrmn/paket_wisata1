@@ -23,12 +23,12 @@
 	        <div class="card-body"> 
 	            <div class="form-group form-group-float" style="text-align: left;">  
 	            	<label class="form-group-float-label"><b>Package ID</b></label>              
-	                <input type="text" name="id_package" class="form-control" value="<?php echo $idmax; ?>" id="id_package" disabled>
+	                <input type="text" name="id_package" class="form-control" value="<?php echo $idmax; ?>" id="id_package" readonly>
 	            </div>  
 
-	            <div class="form-group form-group-float" style="text-align: left;">    
+	            <div class="form-group form-group-float" style="text-align: left;" hidden>    
 	            	<label class="form-group-float-label"><b>Agent Name</b></label>            
-	                <input type="text" name="id_user" class="form-control" value="<?php echo $_SESSION['username']; ?>" id="id_user" disabled>
+	                <input type="text" name="id_agen" class="form-control" value="<?php echo $_SESSION['id_user']; ?>" id="id_agen" readonly>
 	            </div>  
 
 	            <div class="form-group form-group-float" style="text-align: left;">
@@ -272,7 +272,7 @@ function show1(){
 	var name = document.getElementById('name').value;
 	var price = document.getElementById('price').value;
 	var id = document.getElementById('id_package').value;
-	// var id_travel = document.getElementById('id_user').value;
+	var id_agen = document.getElementById('id_agen').value;
   var itinerary = document.getElementById('itinerary').value;
   console.log('jalan tes lagi 2');
 	if(document.getElementById('name').value != "" & document.getElementById('price').value != ""){
@@ -282,8 +282,8 @@ function show1(){
 	// 	document.getElementById("caritempatwisata").style.display = "";
 		document.getElementById("data-dis").style.display = "none";
 	// 	document.getElementById("data-1").style.display = "none";
-    console.log('jalan tes lagi 3,'+id+', '+name+', '+price+','+itinerary);
-		$.ajax({url:"act/savePackage.php?data1=1&data2="+id+"&data4="+name+"&data5="+price+"&data6="+itinerary, 
+    console.log('jalan tes lagi 3,'+id+', '+id_agen+', '+name+', '+price+','+itinerary);
+		$.ajax({url:"act/savePackage.php?data1=1&data2="+id+"&data3="+id_agen+"&data4="+name+"&data5="+price+"&data6="+itinerary, 
       data: "", dataType: 'json', success: function(rows){
 			console.log('jalan tes lagi 4');
 		}});

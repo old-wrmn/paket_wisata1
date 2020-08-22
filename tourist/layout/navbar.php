@@ -56,8 +56,8 @@ require_once  'ti.php';
     <script src="../config_public.js"></script>
     <script src="../inc/_map.js"></script>
     <script src="../tourist/inc/_script.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNnzxae2AewMUN0Tt_fC3gN38goeLVdVE&sensor=true"></script>
-
+<!--     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNnzxae2AewMUN0Tt_fC3gN38goeLVdVE&sensor=true"></script>
+ -->
 
 <style type="text/css">
       #legend {

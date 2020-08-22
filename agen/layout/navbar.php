@@ -35,13 +35,14 @@ require_once  'ti.php';
 	<script src="../global_assets/js/main/jquery.min.js"></script>
 	<script src="../global_assets/js/main/bootstrap.bundle.min.js"></script>
 	<script src="../global_assets/js/plugins/loaders/blockui.min.js"></script>
-	<script src="../global_assets/js/plugins/ui/ripple.min.js"></script>
+	<!-- <script src="../global_assets/js/plugins/ui/ripple.min.js"></script> -->
 	<script src="../global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
 	<script src="../global_assets/js/demo_pages/datatables_advanced.js"></script>
+	<script src="../global_assets/js/demo_pages/datatables_basic.js"></script>
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
-	<script src="../global_assets/js/app.js"></script>
+	<!-- <script src="../global_assets/js/app.js"></script> -->
 	<script src="../global_assets/js/demo_pages/maps/google/markers/animation.js"></script>	
 	<script src="../global_assets/js/plugins/forms/selects/select2.min.js"></script>
 	<script src="../global_assets/js/plugins/forms/styling/uniform.min.js"></script>
@@ -50,6 +51,7 @@ require_once  'ti.php';
 	<script src="../global_assets/js/demo_pages/components_media.js"></script>
 
 	<script src="../config_public.js"></script>
+	<script src="../agen/inc/_script.js"></script>
 	<!-- <script src="../_map.js"></script> -->
 <!-- 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNnzxae2AewMUN0Tt_fC3gN38goeLVdVE&libraries=drawing"></script> -->
 <!-- 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNnzxae2AewMUN0Tt_fC3gN38goeLVdVE"></script>

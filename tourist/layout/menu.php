@@ -49,12 +49,20 @@
 								</span>
 							</a>
 						</li>
+
 						<li class="nav-item" id="twp">
 	                    	<a href="javascript:;" class="nav-link" id="showall" onclick="tampilsemua()">
 	                    		<i class="icon-list"></i>
 	                          	<span>Tourism Package</span>
 	                    	</a>
 		                </li> 
+
+						<li class="nav-item" id="cp">
+	                    	<a class="nav-link" id="showall" href="?page=customPackage">
+	                    		<i class="icon-pencil7"></i>
+	                          	<span>Custom Package</span>
+	                    	</a>
+		                </li>		                
 
 						<li class="nav-item nav-item-submenu" id="tay">
 				          <a href="#" class="nav-link"><i class="icon-compass4"></i> <span>Tourism Around You</span></a>

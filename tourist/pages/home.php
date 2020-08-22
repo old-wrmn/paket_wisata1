@@ -1,4 +1,4 @@
-<!-- Main charts -->
+<!--Main charts -->
 	<div class="row">
 		<div class="col-xl-8">
                
@@ -158,9 +158,12 @@
 						
 					</div>
 
-					<div class="modal-footer">
-						<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn bg-primary">Save changes</button>
+					<div class="modal-footer card-footer d-flex justify-content-between align-items-center bg-primary">
+						
+						<a type="button" class="btn btn-outline bg-white text-white border-white border-2 legitRipple" id="custom">Custom Package</a>
+						<!-- <button type="button" class="btn btn-link" data-dismiss="modal">Close</button> -->
+						<button type="submit" class="btn btn-outline bg-white text-white border-white border-2 legitRipple">Booking</button>
+						
 					</div>
 				</form>
 			</div>
@@ -168,4 +171,4 @@
 	</div>
 <!-- --------------------------------------------------------------------------------------------- -->
 	<!---- --------------------------------- End Modal BOOKING --------------------------------- ---->
-<!-- --------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------

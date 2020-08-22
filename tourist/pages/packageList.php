@@ -45,7 +45,7 @@
 						</tbody>
 					</table>
 				</div>
-				<!-- /highlighting rows and columns -->		
+<!-- /highlighting rows and columns -->		
 
 <script type="text/javascript">
 $('#dataTable').dataTable( {

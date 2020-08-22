@@ -12,11 +12,11 @@ include ('../../connect.php');
 */
 
 if($_GET['data1']==1){      //menyimpan paket baru  
-	// $id_travel = $_GET['data3'];      
+	$id_agen = $_GET['data3'];      
 	$name = $_GET['data4'];         
 	$price = $_GET['data5'];   
 	$itinerary = $_GET['data6'];       
-	$text = "insert into package (id_package, name, price,itinerary) values ('$id_package', '$name', $price, '$itinerary')";
+	$text = "insert into package (id_package, id_user, name, price, itinerary) values ('$id_package', '$id_agen', '$name', $price, '$itinerary')";
 	echo $text;
 	$sql = mysqli_query($conn, $text);
 }
@@ -117,14 +117,14 @@ elseif($_GET['data1']==44){ // update itinerary paket
 		echo "berhasil";
 	}
 } 
-elseif($_GET['data1']==5){
+elseif($_GET['dats1']==5){
 	
 	$data5 = array();
 	
 	$dats5[5] = "id_hotel";
 	$dats5[4] = "id_tourism";
 	$dats5[3] = "id_restaurant";
-	$dats5[2] = "id_workship_place";
+	$dats5[2] = "id_worship_place";
 	$dats5[1] = "id_souvenir";
 	//menghapus destinasi untuk di update
 	echo " tes simpan estimated
@@ -133,7 +133,7 @@ elseif($_GET['data1']==5){
 				id_package, 
 				status,
 				".$dats5[$_GET['dats3']].",
-				time,  estimated_hour
+				lama_perjalanan,  estimasi_waktu
 				) values (
 				'".$_GET['dats5']."',
 				'".$_GET['dats2']."',
@@ -154,7 +154,7 @@ elseif($_GET['data1']==5){
 				id_package, 
 				objek,
 				".$dats5[$_GET['dats3']].",
-				time,  estimated_hour
+				lama_perjalanan,  estimasi_waktu
 				) values (
 				'".$_GET['dats5']."',
 				'".$_GET['dats2']."',
@@ -171,10 +171,13 @@ elseif($_GET['data1']==6){
 		SET price = ".$_GET['data3']."
 		WHERE id = '".$_GET['data2']."'
 	");
-}  
+
+}elseif ($_GET['data1']==91) {
+	$query91 = mysqli_query($conn, "
+		DELETE FROM paket_wisata1.object_point WHERE (no_urut = '".$_GET['dats5']."') and (id_package = '".$_GET['data2']."');
+	");
+}
+
  
- 
-$sql = mysqli_query($conn, $text);
-  $hasil = mysqli_query($conn, $querysearch);
 ?>
 

@@ -32,7 +32,12 @@
 	                          	<span>Package List</span>
 	                    	</a>
 		                </li> 		                		                
-							
+						<li class="nav-item">
+	                    	<a href="?page=packageOrdered" class="nav-link">
+	                    		<i class="icon-list-numbered"></i>
+	                          	<span>Ordered Package</span>
+	                    	</a>
+		                </li>
 						<!-- /main -->
 					</ul>
 				</div>

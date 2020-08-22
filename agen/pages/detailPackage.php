@@ -51,8 +51,8 @@ while($baris = mysqli_fetch_array($hasil)){
 					</div>
 				</div>
 			</div>
-			<a href="?page=formUpdateHotel&id=<?php echo $id ?>" class="btn btn-round btn-warning mb-2"><i class="icon-pencil7 mr-1"></i>Update Data</a>
-			<button type="button" class="btn btn-round bg-info mb-2" data-toggle="modal" data-target="#modal_theme_info"><i class="icon-file-picture2 mr-1"></i>Tambah Gambar</button>
+			<a href="?page=formUpdatePackage&id=<?php echo $id ?>" class="btn btn-round btn-warning mb-2"><i class="icon-pencil7 mr-1"></i>Update Package</a>
+			<button type="button" class="btn btn-round bg-info mb-2" data-toggle="modal" data-target="#modal_theme_info"><i class="icon-file-picture2 mr-1"></i>Lihat Media</button>
 		</center>
 
 				<div class="card col-md-12 bg-light">
@@ -67,12 +67,12 @@ while($baris = mysqli_fetch_array($hasil)){
 	                	</div>
 					</div>
 
-					<table id="dataTable" class="table table-bordered table-hover datatable-highlight">
+					<table id="dataTable" class="table table-bordered table-hover datatable-highlight mb-3">
 						<thead>
 							<tr style="text-align: center;">
 								<th>NO.</th>
-								<th>District</th>
 								<th>Object</th>
+								<th>District</th>
 								<th>Lama Perjalanan</th>
 								<th>Durasi</th>								
 							</tr>
@@ -125,8 +125,8 @@ while($baris = mysqli_fetch_array($hasil)){
 						<tbody>			
 							<tr>
                                 <td style="text-align: center; width: 5%"><?php echo $arr1[$i][0]; ?></td>
-                                <td style="width: 25%"><?php echo "$row[n2]"; ?></td>
                                 <td style="width: 30%"><?php echo "$row[n1]"; ?></td>
+                                <td style="width: 25%"><?php echo "$row[n2]"; ?></td>
                                 <td style="width: 20%"><?php echo $arr1[$i][7]; ?></td>
                                 <td style="width: 20%"><?php echo $arr1[$i][8]; ?></td>
 							</tr>			
@@ -144,11 +144,10 @@ while($baris = mysqli_fetch_array($hasil)){
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header bg-info">
-				<h4 class="modal-title">Upload Picture of <?php echo $name ?></h4>
+				<h4 class="modal-title">Picture of <?php echo $name ?></h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-			
-			<form role="form" action="act/saveVidPack.php" enctype="multipart/form-data" method="post">
+						
 				<div class="modal-body">
 
 					<div class="row">
@@ -182,28 +181,8 @@ while($baris = mysqli_fetch_array($hasil)){
 						        </div>				  					  
 						    </section>
 						</div>
-
-						<div class="col-sm-12"> <!-- menampilkan peta-->
-						  	<section class="panel">						        
-						        <div class="panel-body">
-						  			<div class="box-body">
-										<input type="hidden" class="form-control hidden" name="id" value="<?php echo $id ?>">
-										<div class="form-group">					 			
-							 			<input type="file" class="form-control-uniform" name="image" data-fouc required>
-										</div>
-										<span style="color:red;">*Maximum image size 200mb</span>
-						  			</div><!-- /.box-body -->
-						        </div>			  
-						  	</section>
-						</div>
 					</div>	
 				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn bg-info">Submit</button>
-				</div>
-			</form>				
 		</div>
 	</div>
 </div>
@@ -213,7 +192,9 @@ while($baris = mysqli_fetch_array($hasil)){
 <script type="text/javascript">
 $('#dataTable').dataTable( {
   "columnDefs": [ {
+  	ajax:{
   		"display": none;
+  	}
     } ]
 } );
 </script>

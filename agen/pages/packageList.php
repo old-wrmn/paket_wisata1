@@ -33,7 +33,7 @@
 							<tr>
                                 <td style="text-align: center; width: 15%"><?php echo "$id"; ?></td>
                                 <td style="width: 30%"><?php echo "$nama"; ?></td>
-                                <td style="width: 40%"><?php echo "$price"; ?></td>                                
+                                <td style="width: 40%">Rp <?php echo "$price"; ?></td>                                
                                 <td style="text-align: center; width: 15%">
                                     <div class="btn-group">
                 						<a href="?page=detailPackage&id=<?php echo $id; ?>" class="btn btn-outline bg-blue-400 text-blue-400 border-blue-400"  title='Detail'><i class="icon-list"></i></a> &nbsp&nbsp&nbsp&nbsp
