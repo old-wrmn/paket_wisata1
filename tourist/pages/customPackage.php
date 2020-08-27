@@ -37,13 +37,16 @@
  
                                 ?>				
 							<tr>
-                                <td style="text-align: center; width: 20%"><a href="?page=customPackage1&id=<?php echo $id_package ?>"><?php echo "$id_package"; ?></a></td>
+                                <td style="text-align: center; width: 20%"><?php echo "$id_package"; ?></td>
                                 <td style="text-align: center; width: 40%"><?php echo "$name"; ?></td>
                                 <td style="text-align: center; width: 20%"><?php echo "$price"; ?></td>
                                 <td style="text-align: center; width: 20%">
                                 	<div class="btn-group">
-                                	<a role="button" class="btn btn-outline bg-green-400 text-green-400 border-green-400 icon-envelop5 mr-1" title="booking" href="#modalbooking" data-toggle="modal" onclick='booking("<?="$id_package"?>","<?="$price"?>")'></a>
-                                	<a role="button" title="Package Info" class="btn btn-outline bg-info-400 text-info-400 border-info-400 icon-info22 ml-1" value="Route"></a>
+	                                	<button a role="button" class="btn btn-outline bg-green-400 text-green-400 border-green-400 icon-envelop5 mr-1" <?php if ($price=='0') { echo "disabled";  }  ?> title="booking" href="#modalbooking" data-toggle="modal" onclick='booking("<?="$id_package"?>","<?="$price"?>")'></button>
+
+	                                	<a role="button" href="?page=customPackage1&id=<?php echo $id_package ?>" title="Cutomize Package" class="btn btn-outline bg-info-400 text-info-400 border-info-400 icon-pencil7 ml-1 mr-1" value="Route"></a>
+
+	                                	<a role="button" href="act/deletePackage.php?id=<?php echo $id_package; ?>" class="btn btn-outline bg-danger-400 text-danger-400 border-danger-400 icon-trash ml-1" title='Delete'></a>
                                 	</div>
                                 </td>
 							</tr>

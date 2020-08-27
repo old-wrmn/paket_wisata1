@@ -1,8 +1,25 @@
 <?php
 	include ('../connect.php');
 	$name = $_GET['name'];
-	$querysearch	="SELECT id_package, name, price
-	                        FROM package as a  where upper(name) like upper('%$name%') order by id_package ASC";
+	$idUser =  $_GET['id_user'];
+
+if ($idUser==null) {
+	$querysearch	="SELECT package.id_package, 
+								package.name, 
+								package.price
+								FROM package 
+								join users  on package.id_user=users.id_user
+								where upper(name) like upper('$name') || users.role_id ='B'
+								order by id_package ASC";
+}else{
+	$querysearch	="SELECT package.id_package, 
+								package.name, 
+								package.price
+								FROM package 
+								join users  on package.id_user=users.id_user
+								where upper(name) like upper('$name') || users.role_id ='B' || users.id_user='$idUser' order by id_package ASC";
+}
+
 				   
 	$hasil=mysqli_query($conn, $querysearch);
 	while($baris = mysqli_fetch_array($hasil))

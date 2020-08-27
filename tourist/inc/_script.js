@@ -44,6 +44,21 @@ function send(id_booking){
   location.reload();
 }
 
+function sendCust(id_package){
+
+  $.ajax({
+     type : "POST",
+     url  : server+'tourist/act/pesanPktKstm.php?id_package='+id_package,
+     dataType : "JSON",
+     success: function(data){
+         console.log(url); 
+         alert('Data Has Been Send!');
+     }
+  });
+  window.location.href='?page=customPackage1&id='+id_package ;
+  
+}
+
 function update(id_booking){                    
   update_id = id_booking;                      
   document.getElementById('id_booking').value = update_id;
@@ -70,6 +85,11 @@ function update(id_booking){
            document.getElementById('totalprice').value = price;
           }
         }); 
+
+}
+
+function delPackage(id_package){
+  window.location.href='act/deletePackage.php?id='+id_package ;
 
 }
 

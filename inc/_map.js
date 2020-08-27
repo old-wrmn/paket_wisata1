@@ -541,7 +541,7 @@ function geolocation(){
       hapus_Semua();
       tampilDigitTourism();
         $.ajax({ 
-              url: server+'act/lihatsemua.php?id='+aab, data: "", dataType: 'json', success: function(rows)
+              url: server+'act/lihatsemua.php?id_user='+aab, data: "", dataType: 'json', success: function(rows)
                 { 
                   if(rows==null)
                   {
@@ -1115,7 +1115,7 @@ function geolocation(){
       ***********************************************************************************************************************************************************
       *********************************************************************************************************************************************************** */
 
-      function cariPaket(){
+      function cariPaket(id_user){
         $('#galleryrecommendxxx').hide();
         $('#view_kanan_table').show();
         document.getElementById('judul_table').innerHTML="List of Tourism Package";     
@@ -1131,7 +1131,7 @@ function geolocation(){
         else
         {
           $.ajax({ 
-              url: server+'act/cariPaket.php?name='+car, data: "", dataType: 'json', success: function(rows)
+              url: server+'act/cariPaket.php?name='+car+'&id_user='+id_user, data: "", dataType: 'json', success: function(rows)
                 { 
                   if(rows==null)
                   {

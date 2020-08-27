@@ -1,6 +1,7 @@
 <?php
 include ('../connect.php');
-$id = $_GET['id'];
+// $id = $_GET['id'];
+$idUser =  $_GET['id_user'];
 
 // $query = mysqli_query($conn, "SELECT package.id_package, 
 // 									package.name, 
@@ -10,8 +11,8 @@ $id = $_GET['id'];
 // 			                        join users on package.id_user=users.id_user
 // 			                        where role_id !='C' and role_id !='A'
 // 			                        order by package.id_package ASC");
-
-$querysearch	="SELECT package.id_package as id_package, 
+if ($idUser==null) {
+	$querysearch	="SELECT package.id_package as id_package, 
 									package.name as name, 
 									package.price as price, 
 									users.role_id as role
@@ -19,6 +20,18 @@ $querysearch	="SELECT package.id_package as id_package,
 			                        join users on package.id_user=users.id_user
 			                        where role_id !='C' and role_id !='A'
 			                        order by package.id_package ASC";
+}else{
+	$querysearch	="SELECT package.id_package as id_package, 
+									package.name as name, 
+									package.price as price, 
+									package.id_user,
+									users.role_id as role
+			                        FROM package 
+			                        join users on package.id_user=users.id_user
+			                        where package.id_user='$idUser' || users.role_id ='B'
+			                        order by package.id_package ASC";
+}
+
 			   
 $hasil=mysqli_query($conn, $querysearch);
 while($baris = mysqli_fetch_array($hasil))

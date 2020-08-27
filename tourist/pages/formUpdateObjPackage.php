@@ -72,7 +72,7 @@ $id = $_GET["id"]
 				</div>
 				<div class="card-footer d-flex justify-content-between align-items-center bg-info border-top-0">
 					<button type="button" class="btn btn-outline bg-white text-white border-white border-2" onclick='show2()'><i class="icon-plus3 mr-1"></i>Add</button>
-					<a href="?page=packageList" class="btn btn-outline bg-white text-white border-white border-2">Save</a>
+					<a href="?page=formUpdatePackage&id=<?php echo $id ?>" class="btn btn-outline bg-white text-white border-white border-2">Save</a>
 				</div>
 			</div>
 		</div>
@@ -219,10 +219,10 @@ $id = $_GET["id"]
 		console.log('show 2 fired');
 		var data0 = document.getElementById('id_package').value;
 		var data1 = document.getElementById('objek').value;
-		var data2 = document.getElementById('cariObjek').value;
+		var data2 = document.getElementById('cariPlace').value;
 		var data3 = document.getElementById('time').value;
 		var data9 = document.getElementById('estimated').value;
-		var name = $("#cariObjek option:selected").text();
+		var name = $("#cariPlace option:selected").text();
 
 		$('#hasilcaritempat').append("<tr><td>" + no + "</td><td>" + name + "</td></tr>");
 		no++;
@@ -235,12 +235,12 @@ $id = $_GET["id"]
 
 			console.log("ertyuityguigighjkyuiotyiofgfghfdcfhgcfhgcgfhcgfhchgfchfgc");
 		};
-		var itu = "act/savePackage.php?data1=2&data2=" + data0 + "&data3=" + data1 + "&data4=" + data2 + "&data5=" + data3 + "&data7=" + data9;
+		var itu = "act/savePackage.php?data1=2&data2=" + data0 + "&data3=" + objek + "&data4=" + data2 + "&data5=" + data3 + "&data7=" + data9;
 		console.log(itu);
 
 		//nyimpan ka object point
 		$.ajax({
-			url: "act/savePackage.php?data1=2&data2=" + data0 + "&data3=" + data1 + "&data4=" + data2 + "&data5=" + data3 + "&data7=" + data9,
+			url: "act/savePackage.php?data1=2&data2=" + data0 + "&data3=" + objek + "&data4=" + data2 + "&data5=" + data3 + "&data7=" + data9,
 			data: "",
 			dataType: 'json',
 			success: function(rows) {
@@ -249,9 +249,9 @@ $id = $_GET["id"]
 		});
 
 		//
-		console.log("act/savePackage.php?data1=3&data2=" + data0 + "&data3=" + data1);
+		console.log("act/savePackage.php?data1=3&data2=" + data0 + "&data3=" + objek);
 		$.ajax({
-			url: "act/savePackage.php?data1=3&data2=" + data0 + "&data3=" + data1,
+			url: "act/savePackage.php?data1=3&data2=" + data0 + "&data3=" + objek,
 			data: "",
 			dataType: 'json',
 			success: function(rows) {
@@ -264,10 +264,12 @@ $id = $_GET["id"]
 	}
 </script>
 <script type="text/javascript">
+	// $('#home').hide();
 	$('#twp').hide();
 	$('#tay').hide();
 	$('#spn').hide();
 	$('#spd').hide();
+	$('#cp').hide();
 </script>
 
 <!-- Core JS files -->

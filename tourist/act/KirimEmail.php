@@ -57,7 +57,7 @@ $mail->isSMTP();
         $mail->Port = 587;
         $mail->SMTPSecure='tls';
         $mail->SMTPAuth = true;
-        $mail->Username = "aplikasi.paketwisata@gmail.com";
+        $mail->Username = "aplikasi.paketwisata@gmail.com"; //email kirim dari aplikasi
         $mail->Password = "awytbg19";
 
         $mail->setFrom("aplikasi.paketwisata@gmail.com");
@@ -70,7 +70,7 @@ $mail->isSMTP();
         )
     );
          // Setel format email ke HTML 
-        $mail->addAddress($emailAgen, $usernameAgen);
+        $mail->addAddress($emailAgen, $usernameAgen); //email penerima
         //    $mail->addAddress("$email", "$Username");
         $mail->Subject = 'GIS TOURISM PACKAGE PADANG CITY' ; 
         $mail->Body = "Anda mendapatkan pesanan paket wisata dari : 

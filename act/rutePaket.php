@@ -41,7 +41,7 @@ while($row = mysqli_fetch_array($hasil))
 		  else
 		  {
 		  	$querysearch2 = "SELECT ST_X(ST_Centroid(geom)) AS longitude, 
-					ST_Y(ST_CENTROID(geom)) As latitude FROM worship_place where id='$id_worship_place'";	
+					ST_Y(ST_CENTROID(geom)) As latitude FROM worship_place where id_worship_place='$id_worship_place'";	
 		  }
 			$hasil2=mysqli_query($conn, $querysearch2);
 			while($row = mysqli_fetch_array($hasil2))

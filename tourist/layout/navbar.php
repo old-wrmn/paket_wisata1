@@ -34,7 +34,7 @@ require_once  'ti.php';
 	<script src="../global_assets/js/main/jquery.min.js"></script>
 	<script src="../global_assets/js/main/bootstrap.bundle.min.js"></script>
 	<script src="../global_assets/js/plugins/loaders/blockui.min.js"></script>
-	<script src="../global_assets/js/plugins/ui/ripple.min.js"></script>
+	<!-- <script src="../global_assets/js/plugins/ui/ripple.min.js"></script> -->
 	<script src="../global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
 	<script src="../global_assets/js/demo_pages/datatables_advanced.js"></script>
 	<!-- /core JS files -->

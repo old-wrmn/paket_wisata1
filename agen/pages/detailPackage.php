@@ -105,7 +105,7 @@ while($baris = mysqli_fetch_array($hasil)){
 								$arr2[5] = "hotel";
 								$arr2[4] = "tourism";
 								$arr2[3] = "restaurant";
-								$arr2[2] = "workship_place";
+								$arr2[2] = "worship_place";
 								$arr2[1] = "souvenir";
 								for($i=0;$i<$a;$i++)	
 								{

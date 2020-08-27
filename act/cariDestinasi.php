@@ -12,16 +12,56 @@ $id = $_GET["id"];
 */
  
 if ($status == 1) {
-	$querysearch = " SELECT object_point.id_package, package.name, package.price FROM object_point left join package on package.id_package = object_point.id_package where id_souvenir = '$id' ";
+	$querysearch = " SELECT package.id_package, 
+							package.name, 
+							package.price,
+							package.id_user,
+							users.role_id 
+							FROM package 
+							join object_point on object_point.id_package = package.id_package 
+							join users on package.id_user = users.id_user
+							where id_souvenir = '$id' and users.role_id='B' ";
 } else if ($status == 2) {
-	$querysearch = " SELECT object_point.id_package, package.name, package.price FROM object_point left join package on package.id_package = object_point.id_package where id_worship_place = '$id' ";
+	$querysearch = " SELECT package.id_package, 
+							package.name, 
+							package.price,
+							package.id_user,
+							users.role_id 
+							FROM package 
+							join object_point on object_point.id_package = package.id_package 
+							join users on package.id_user = users.id_user
+							where id_worship_place = '$id' and users.role_id='B' ";
 } else if ($status == 3) {
-	$querysearch = " SELECT object_point.id_package, package.name, package.price FROM object_point left join package on package.id_package = object_point.id_package where id_restaurant = '$id' ";
+	$querysearch = " SELECT package.id_package, 
+							package.name, 
+							package.price,
+							package.id_user,
+							users.role_id 
+							FROM package 
+							join object_point on object_point.id_package = package.id_package 
+							join users on package.id_user = users.id_user
+							where id_restaurant = '$id' and users.role_id='B' ";
 } else if ($status == 4) {
-	$querysearch = "SELECT object_point.id_package, package.name, package.price FROM object_point left join package on package.id_package = object_point.id_package where id_tourism = '$id' ";
+	$querysearch = " SELECT package.id_package, 
+							package.name, 
+							package.price,
+							package.id_user,
+							users.role_id 
+							FROM package 
+							join object_point on object_point.id_package = package.id_package 
+							join users on package.id_user = users.id_user
+							where id_tourism = '$id' and users.role_id='B' ";
 }
 else if ($status == 5) {
-	$querysearch = " SELECT object_point.id_package, package.name, package.price FROM object_point left join package on package.id = object_point.id_package where id_hotel = '$id' ";
+	$querysearch = " SELECT package.id_package, 
+							package.name, 
+							package.price,
+							package.id_user,
+							users.role_id 
+							FROM package 
+							join object_point on object_point.id_package = package.id_package 
+							join users on package.id_user = users.id_user
+							where id_hotel = '$id' and users.role_id='B' ";
 }
 
 

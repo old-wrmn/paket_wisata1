@@ -41,7 +41,7 @@
 						<li class="nav-item-header">
 							<div class="text-uppercase font-size-s font-weight-bold line-height-s">MENU
 						</div><i class="icon-menu" title="Main"></i></li>
-						<li class="nav-item">
+						<li class="nav-item" id="home">
 							<a href="index.php" class="nav-link active">
 								<i class="icon-home4"></i>
 								<span>
@@ -51,7 +51,7 @@
 						</li>
 
 						<li class="nav-item" id="twp">
-	                    	<a href="javascript:;" class="nav-link" id="showall" onclick="tampilsemua()">
+	                    	<a href="javascript:;" class="nav-link" id="showall" onclick="tampilsemua('<?php echo $_SESSION['id_user'] ?>')">
 	                    		<i class="icon-list"></i>
 	                          	<span>Tourism Package</span>
 	                    	</a>
@@ -94,7 +94,7 @@
 								<ul class="sub ml-3 mr-4">
 									<input type="text" class="form-control mt-1"  placeholder="Name" id="nama_paket">
 									<span class="input-group-btn">									
-									<button type="button" class="btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-search4 mt-1" title="Cari" value="caripaket" onclick="cariPaket();"><i class="fa fa-search"></i></button>
+									<button type="button" class="btn btn-outline bg-blue-400 text-blue-400 border-blue-400 icon-search4 mt-1" title="Cari" value="caripaket" onclick="cariPaket('<?php echo $_SESSION['id_user'] ?>');"><i class="fa fa-search"></i></button>
 								</ul>				
 							</ul>
 						</li>

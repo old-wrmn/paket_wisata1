@@ -52,7 +52,7 @@ while($baris = mysqli_fetch_array($hasil)){
 				</div>
 			</div>			
 			<div class="btn-group">
-				<a href="?page=formUpdateObjPackage&id=<?php echo $id ?>" class="btn btn-round btn-warning mb-2 mr-1"><i class="icon-pencil7 mr-1"></i>Update Package</a>			
+				<a href="?page=formUpdatePackage&id=<?php echo $id ?>" class="btn btn-round btn-warning mb-2 mr-1"><i class="icon-pencil7 mr-1"></i>Update Package</a>			
 				<button type="button" class="btn btn-round bg-info mb-2 ml-1" data-toggle="modal" data-target="#modal_theme_info"><i class="icon-play3 mr-1"></i>Show Video</button>
 			</div>
 		</center>

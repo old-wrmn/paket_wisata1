@@ -59,10 +59,10 @@ $query2 = mysqli_query($conn, "insert into object_point
 								FROM object_point
 								where id_package='".$id_package."'");
 
-if(mysqli_query($conn, $query2))
+if($select2)
       {
         echo"<script>
-        alert ('Data Deleted!');
+        alert ('Package has been customized!');
         eval(\"parent.location='../?page=customPackage'\");
         </script>"; 
       }

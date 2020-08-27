@@ -30,24 +30,24 @@ $id = $_GET["id"];
       </header>
 
       <div class="card-body">
-        <div class="form-group form-group-float" style="text-align: left;">
+        <div class="form-group form-group-float" style="text-align: left;" hidden>
             <input type="text" class="form-control" id="n0" value=<?php echo $arr0['id']; ?> hidden>
             <label class="form-group-float-label"><b>Package Name</b></label>
             <div class="input-group">
-              <input type="text" name="name" class="form-control" id="n1" value=<?php echo $arr0['name']; ?> autofocus>
-              <span class="input-group-append">
+              <input type="text" name="name" class="form-control" id="n1" value=<?php echo $arr0['name']; ?> readonly>
+              <!-- <span class="input-group-append">
                 <button class="btn btn-info" id='tombolup1' onclick='Up1()'>Update</button>
-              </span>
+              </span> -->
             </div>
         </div>     
 
         <div class="form-group form-group-float" style="text-align: left;">
             <label class="form-group-float-label"><b>Price</b></label>
           <div class="input-group"> 
-            <input type="number" name="price" class="form-control" id="n2" placeholder="Price (HANYA ANGKA)" value=<?php echo $arr0['price']; ?> >
-            <span class="input-group-append">
+            <input type="number" name="price" class="form-control" id="n2" placeholder="Price (HANYA ANGKA)" value=<?php echo $arr0['price']; ?> readonly>
+            <!-- <span class="input-group-append">
               <button class="btn btn-info" id='tombolup2' onclick='Up2()'>Update</button>
-            </span>
+            </span> -->
           </div>  
         </div> 
 
@@ -88,7 +88,7 @@ $id = $_GET["id"];
 
             $arr1 = array();
             $arr2 = array();
-              $query = "SELECT * from package join object_point where package.id_package=object_point.id_package and package.id_package ='$id'";
+              $query = "SELECT * from package join object_point where package.id_package=object_point.id_package and package.id_package ='$id' ORDER BY no_urut asc";
 
 
                 $data0=mysqli_query($conn, $query); $indexArray = 0;
@@ -162,6 +162,11 @@ $id = $_GET["id"];
         <?php } else{ ?>
         <a type="button" class="btn bg-blue-400 text-blue-400 border-blue-400 mt-1 mb-3 col-xl-12" onclick="sendCust('<?php echo $id ?>')">SELESAI</a>  
         <?php }?>
+        
+        <!-- <a type="button" class="btn bg-blue-400 text-blue-400 border-blue-400 mt-1 mb-3 col-xl-12" onclick="sendCust('<?php echo $id ?>')"></a> -->
+
+        <!-- <a type="button" class="btn bg-blue-400 text-blue-400 border-blue-400 mt-1 mb-3 col-xl-12" href="act/pesanPktKstm.php?id_package=<?php echo $id ?>"></a> -->
+
 
       </div>
 
@@ -181,7 +186,7 @@ $id = $_GET["id"];
             <label for="example-search-input" class="col-sm-3 col-form-label">Choose district</label>
               <div class="col-sm-6">
                 <input type="hidden" id="no_urut" value=""/>
-                <select class="form-control select2" style="width: 100%;" id="district" onchange="cariobjek()">
+                <select class="form-control select2" style="width: 100%;" id="district" onchange="getDistrict(this);">
                     <option value="0">-- Choose district --</option>
                       <?php
                         $sql = mysqli_query($conn, "select * from district");
@@ -195,7 +200,7 @@ $id = $_GET["id"];
           <div class="form-group row" id="data1">
             <label for="example-search-input" class="col-sm-3 col-form-label">Choose Object</label>
               <div class="col-sm-6">
-                <select class="form-control select2" style="width: 100%;" id="n3" onchange="cariobjek()">
+                <select class="form-control select2" style="width: 100%;" id="n3" onchange="getObjek(this)">
                     <option value="0">-- Choose Object --</option>
                     <option value="1">Souvenir</option>
                     <option value="2">Mosque</option>
@@ -209,7 +214,7 @@ $id = $_GET["id"];
           <div class="form-group row" id="data2">
             <label for="example-search-input" class="col-sm-3 col-form-label">Choose Place</label>
               <div class="col-sm-6">
-                <select class="form-control select2" style="width: 100%;" id="n4"></select>
+                <select class="form-control select2" style="width: 100%;" id="cariPlace"></select>
               </div>
           </div> 
           
@@ -263,9 +268,6 @@ $id = $_GET["id"];
 </div>
 
 
-</div>
-
-
 <script type="text/javascript">
   function getserial(serial){
     var input = document.getElementById('no_urut');
@@ -299,127 +301,58 @@ function deleto(id_package, serial){
 
 }
 
-function delPackage(id_package){
-  window.location.href='act/deletePackage.php?id='+id_package ;
-
-}
-
    function RefreshTable() {
     var z = document.getElementById('n0').value;
-       $( "#dataTable" ).load( "http://localhost/paket_wisata/agen/index.php?page=formUpdatePackage&id="+z+" #dataTable" );
+       $( "#dataTable" ).load( "http://localhost/paket_wisata/tourist/index.php?page=formUpdatePackage&id="+z+" #dataTable" );
    }
 
    $("#reload").on("click", RefreshTable);
+
+  let district = 0;
+  let objek = 0;
+
+  function getDistrict(dis) {
+    $('#cariPlace').empty();
+    district = dis.value;
+    cariObjek();
+  }
+
+  function getObjek(obj) {
+    $('#cariPlace').empty();
+    objek = obj.value;
+    cariObjek();
+  }   
   
-  function cariobjek(){
-      $('#n4').empty();
-     
-      var district = document.getElementById('district').value;
-      var objek =document.getElementById('n3').value;
-      
-      if (objek!=0 && district!=0){
-        $.ajax({url: "http://localhost/paket_wisata/agen/act/cariObjek.php?objek="+objek+"&district="+district, data: "", dataType:
-         'json', success: function(rows){
+  function cariObjek() {
+    let select = document.getElementById("cariPlace");
+    let res = [];
+
+    if (objek != 0 && district != 0) {
+
+
+      $.ajax({
+        url: "http://localhost/paket_wisata/tourist/act/cariObjek.php?objek=" + objek + "&district=" + district,
+        data: "",
+        dataType: 'json',
+        success: function(rows) {
           console.log(rows);
-          console.log("http://localhost/paket_wisata/agen/act/cariObjek.php?objek="+objek+"&district="+district); 
-            if (objek=="1") {
-              // console.log("jalan1");
-              for (var i in rows){
+          console.log("http://localhost/paket_wisata/tourist/act/cariObjek.php?objek=" + objek + "&district=" + district);
 
-                var row = rows[i];
-                var id = row.id;
-                var name = row.name;
-                console.log(id);
-                console.log(name);
-                $('#n4').append('<option value="'+id+'">'+name+'</option>');
+          for (var i in rows) {
+            var row = rows[i];
+            var id = row.id;
+            var name = row.name;
+            let o = new Option(name, id);
+            $(o).html(name);
+            $("#cariPlace").append(o);
+            console.log(select);
+          }
+        }
+      }); //end ajax
+    } //end if  
+  }
 
-              }
-            }
-            else if (objek=="2") 
-            {
-              for (var i in rows)
-              {
-                var row = rows[i];
-                var id = row.id;
-                var name = row.name;
-                console.log(id);
-                console.log(name);
-                $('#n4').append('<option value="'+id+'">'+name+'</option>');
-              }
-            }
-            else if (objek=="3")
-            {
-              for (var i in rows)
-              {
-                var row = rows[i];
-                var id = row.id;
-                var name = row.name;
-                console.log(id);
-                console.log(name);
-                $('#n4').append('<option value="'+id+'">'+name+'</option>');
-              }
-            }
-            else if (objek=="5") 
-            {
-              for (var i in rows)
-              {
-                var row = rows[i];
-                var id = row.id;
-                var name = row.name;
-                console.log(id);
-                console.log(name);
-                $('#n4').append('<option value="'+id+'">'+name+'</option>');
-              }
-            }
-            else 
-            {
-              for (var i in rows)
-              {
-                var row = rows[i];
-                var id = row.id;
-                var name = row.name;
-                console.log(id);
-                console.log(name);
-                $('#n4').append('<option value="'+id+'">'+name+'</option>');
-              }
-            }
 
-          }});//end ajax
-        }//end if
-}
-var nourut=1;
-function tampilobjek(){
-      var cariobjek = document.getElementById('n4').value;
-      if (cariobjek == '') {
-        alert("Please Choose Object");
-      } else {
-        nourut++;
-        var no = nourut-1;
-        var district = document.getElementById('district').value;
-        console.log(district);
-        var objek =document.getElementById('objek').value;
-        console.log(objek);
-       
-
-        paket_objek.push(objek);
-        paket_id.push(cariobjek);
-
-        console.log("4578945678945678902345678903456789034567890456789");
-        console.log(paket_objek.length);
-        console.log("4578945678945678902345678903456789034567890456789");
-        for (var i = 0; i<paket_objek.length; i++) {
-          console.log(paket_objek[i]);
-          console.log(paket_id[i]);
-        };
-
-        var hasil = document.getElementById('cariobjek');
-        var name = hasil.options[hasil.selectedIndex].text;
-        var id = document.getElementById('objek').value;
-        $('#hasilcaritempat').append("<tr><td>"+no+"</td><td>"+name+"</td><td>"+id+"</td></tr>");
-        
-      }
-
-}
 function Up1(){
   console.log('ok');
   var z = document.getElementById('n0').value;
@@ -440,7 +373,7 @@ function Up2(){
 function Up3(){
   var z = document.getElementById('n0').value;
   var a = document.getElementById('n3').value;
-  var b = document.getElementById('n4').value;
+  var b = document.getElementById('cariPlace').value;
   var g = document.getElementById('no_urut').value;
   var h = document.getElementById('n6').value;
  var j = document.getElementById('n9').value;
@@ -452,12 +385,21 @@ function Up3(){
 function Up4(){
   var z = document.getElementById('n0').value;
   var a = document.getElementById('n7').value;
-  $.ajax({url: "act/savePackage.php?data1=44&data2="+z+"&data3="+a, data: "", dataType: 'json', success: function(rows){}});
+  $.ajax({url: "act/savePackage.php?data1=44&data2="+z+"&data3="+a, data: "", dataType: 'json', success: function(rows){
+  }});
   //window.location.href = "updatepaket.php?id=<?php echo $id; ?>";
   //alert('berhasil');
   console.log("serial number :"+a,z);
   console.log("act/savePackage.php?data1=44&data2="+z+"&data3="+a)
+  alert("successfully changed the object!");
 }  
+</script>
+
+<script type="text/javascript">
+  $('#twp').hide();
+  $('#tay').hide();
+  $('#spn').hide();
+  $('#spd').hide();
 </script>
 
 

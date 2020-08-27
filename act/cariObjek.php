@@ -28,7 +28,7 @@ echo json_encode ($dataarray);
 $result=mysqli_query($conn, $querysearch1);
 while($row = mysqli_fetch_array($result))
     {
-        $id_district=$row['id_district'];
+        $id_district=$district;
         $id=$row['id_worship_place'];
         $name=$row['name'];
         $dataarray1[]=array('id'=>$id, 'id_district'=>$id_district, 'name'=>$name);
@@ -43,7 +43,7 @@ else if ($objek == '3')
 $result=mysqli_query($conn, $querysearch2);
 while($row = mysqli_fetch_array($result))
     {
-        $id_district=$row['id_district'];
+        $id_district=$district;
         $id=$row['id_restaurant'];
         $name=$row['name'];
         $dataarray2[]=array('id'=>$id, 'id_district'=>$id_district, 'name'=>$name);
